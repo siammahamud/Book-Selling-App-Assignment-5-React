@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import { FaStar, FaHeart, FaPenAlt, FaTrash } from "react-icons/fa";
-
+import { FaEdit,FaStar,FaRegHeart } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 const ListViewCard = ({book}) => {
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 flex items-center space-x-4">
@@ -36,10 +36,10 @@ const ListViewCard = ({book}) => {
      {/* right side content  */}
      <div className="flex flex-col h-full justify-between">
          {/* Icons */}
-      <div className="flex space-x-2">
-        <FaPenAlt className="text-yellow-500 text-xl cursor-pointer" />
-        <FaHeart className="text-pink-500 text-xl cursor-pointer" />
-        <FaTrash className="text-red-500 text-xl cursor-pointer" />
+      <div className="flex space-x-4 text-xl md:text-3xl">
+        <FaEdit className="text-yellow-500  cursor-pointer" />
+        <FaRegHeart className="text-pink-500  cursor-pointer" />
+        <MdDeleteForever className="text-red-500  cursor-pointer" />
       </div>
 
       {/* Button */}
