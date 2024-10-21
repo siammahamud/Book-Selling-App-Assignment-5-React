@@ -2,20 +2,41 @@
 
 import ListViewCard from "./listViewCard";
 import BookCard from "./BookCard";
-export const BooksContainer = ({ books,listView }) => {
+import { useState } from "react";
+import BookDetailsModal from "./modals/BookDetailsModal";
+export const BooksContainer = ({ books, listView }) => {
+  // state for keep a single book object
+  const [book, setBook] = useState({});
+  // state for managing the book details modal
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  //-------- func for handling details modal
+  const handleDetails = (b) => {
+    setBook(b);
+    setIsDetailsModalOpen(true);
+  };
+
   return (
-    // book gallary container
-    <div className="flex flex-wrap my-28 gap-10 mx-2 md:mx-8 lg:mx-12 justify-center">
-      {!listView? books.map((book) => {
-       return (
-        //book card
-        <BookCard key={book.id} book={book} />
-      )
-      }):books.map((book)=>{
-        return (
-         <ListViewCard key={book.id} book={book}/>
-        )
-      })}
-    </div>
+    <>
+      {isDetailsModalOpen && (
+        <BookDetailsModal
+          book={book}
+          closeModal={() => setIsDetailsModalOpen(false)}
+        />
+      )}
+      <div className={`w-[95vw] md:w-[90vw] mx-auto  py-28 ${!listView?'flex flex-wrap gap-4 md:gap-8 justify-center':'space-y-8'}  `}>
+        {/* // book gallary container */}
+        {books.map((book) => {
+          return (
+            <div key={book.id}>
+              {listView ? (
+                <ListViewCard book={book} handleDetails={handleDetails} />
+              ) : (
+                <BookCard book={book} />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
