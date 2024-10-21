@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BooksContainer } from "./Books-Container";
 import Header from "./Header";
+import Footer from "./Footer";
 let ArrayOfbooks = [
   {
     id: crypto.randomUUID(),
@@ -152,6 +153,7 @@ export const MainPage = () => {
     <>
       <Header handleView={handleView} listView={listView} />
       <BooksContainer books={books} listView={listView} />
+      <Footer/>
     </>
   );
 };

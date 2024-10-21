@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { GiBookmarklet } from "react-icons/gi";
-import { FaList } from "react-icons/fa";
+import { FaList,FaHeart } from "react-icons/fa";
 import {
   FiGrid,
-  FiHeart,
   FiShoppingCart,
   FiSun,
   FiPlusCircle,
@@ -35,7 +34,7 @@ const Header = ({ handleView,listView }) => {
         }
         </button>
         <button>
-          <FiHeart className="text-2xl text-yellow-500" />
+          <FaHeart className="text-2xl text-yellow-500" />
         </button>
         <button>
           <FiShoppingCart className="text-2xl text-red-500" />
