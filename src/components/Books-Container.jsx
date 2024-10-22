@@ -5,15 +5,18 @@ import BookCard from "./BookCard";
 
 export const BooksContainer = ({
   books,
+  filteredbooks,
   listView,
   handleDlt,
   handleDetails,
   handleFavourite,
+  isfilterdbyfav
 }) => {
+ 
   return (
     <>
       <div
-        className={`w-[95vw] md:w-[90vw] mx-auto  py-28 ${
+        className={`w-[95vw] md:w-[90vw] mx-auto py-10 ${
           !listView
             ? "flex flex-wrap gap-4 md:gap-8 justify-center"
             : "space-y-8"

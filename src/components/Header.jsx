@@ -1,14 +1,11 @@
 /* eslint-disable react/prop-types */
 import { GiBookmarklet } from "react-icons/gi";
-import { FaList,FaHeart } from "react-icons/fa";
-import {
-  FiGrid,
-  FiShoppingCart,
-  FiSun,
-  FiPlusCircle,
-} from "react-icons/fi"; // Replace with correct icons
+import { FaList, FaHeart } from "react-icons/fa";
+import { MdFolderDelete } from "react-icons/md";
+// import { IoMoonOutline } from "react-icons/io5";
+import { FiGrid, FiSun, FiPlusCircle } from "react-icons/fi"; // Replace with correct icons
 
-const Header = ({ handleView,listView, open}) => {
+const Header = ({ handleView, listView, open, isfilterdbyfav,showFavouriteBooks }) => {
   return (
     <header className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-40">
       {/* Logo */}
@@ -28,21 +25,31 @@ const Header = ({ handleView,listView, open}) => {
       {/* Icons */}
       <div className="flex items-center space-x-4">
         <button onClick={handleView}>
-          {listView
-          ? <FiGrid className="text-2xl text-gray-700"/>
-          : <FaList className="text-2xl text-gray-700"/>
-        }
+          {listView ? (
+            <FiGrid className="text-2xl text-gray-700" />
+          ) : (
+            <FaList className="text-2xl text-gray-700" />
+          )}
+        </button>
+        <button
+           onClick={showFavouriteBooks}
+          id="favourite"
+        >
+          <FaHeart className={`text-2xl ${isfilterdbyfav?'text-yellow-500':'text-gray-300'}`} />
         </button>
         <button>
-          <FaHeart className="text-2xl text-yellow-500" />
-        </button>
-        <button>
-          <FiShoppingCart className="text-2xl text-red-500" />
+          <MdFolderDelete className="text-3xl text-red-500" />
         </button>
         <button>
           <FiSun className="text-2xl text-gray-700" />
         </button>
-        <button onClick={open} className="flex items-center  md:px-4 md:py-2 text-sm font-medium text-green-600 md:border border-green-600 rounded-md hover:bg-green-100">
+        {/* <button>
+          <IoMoonOutline className="text-2xl dark:text-white text-gray-700" />
+        </button> */}
+        <button
+          onClick={open}
+          className="flex items-center  md:px-4 md:py-2 text-sm font-medium text-green-600 md:border border-green-600 rounded-md hover:bg-green-100"
+        >
           <FiPlusCircle className="mr-2 text-2xl" />
           <span className="hidden md:block">Add Book</span>
         </button>

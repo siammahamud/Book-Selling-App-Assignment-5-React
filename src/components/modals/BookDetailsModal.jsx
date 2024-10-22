@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { AiFillHeart, AiOutlineClose } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import { FaStar } from "react-icons/fa";
 
-const BookDetailsModal = ({ book, closeModal }) => {
+const BookDetailsModal = ({ book, closeModal,handleFavourite}) => {
   return (
     // outer div
     <div
@@ -20,8 +21,8 @@ const BookDetailsModal = ({ book, closeModal }) => {
             Book Details
           </h2>
           <span className="space-x-6">
-            <button>
-              <AiFillHeart className=" top-4 left-4 text-gray-500" size={24} />
+          <button onClick={() => handleFavourite(book.id)} className="text-2xl">
+             {book.isfavourite? <FaHeart color="orange"/>: <FaHeart color="gray"/>}
             </button>
             <button className=" text-red-500" onClick={closeModal}>
               <AiOutlineClose size={24} />

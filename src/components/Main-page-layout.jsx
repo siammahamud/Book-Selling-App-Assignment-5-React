@@ -5,6 +5,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AddBookModal from "./modals/AddEdit-Book-Modal";
 import { getBookFromLocalStorage } from "./localStorage";
+import FilterTerms from "./filterTerms";
+
 let ArrayOfbooks = [
   {
     id: crypto.randomUUID(),
@@ -143,7 +145,7 @@ let ArrayOfbooks = [
 export const MainPage = () => {
   // all books array state
   const [books, setBooks] = useState(ArrayOfbooks && getBookFromLocalStorage());
-
+  const [filteredbooks, setFilteredBooks] = useState(books);
   // state to keep a single book object
   const [bookObj, setBookObj] = useState({});
 
@@ -151,8 +153,16 @@ export const MainPage = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
 
+  const [isfilterdbyfav,setIsFilterdByFav] = useState(false);
   //  state for listview and card view
   const [listView, setListView] = useState(false);
+  //state for manage filtering 
+  const [isfilter, setIsFilter] = useState({
+    rating:false,
+    price:false,
+    name:false,
+    favrouite:false,
+  })
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(books));
@@ -186,13 +196,37 @@ export const MainPage = () => {
           ...book,
           isfavourite: !book.isfavourite,
         };
-      }else{
-        return  book;
+      } else {
+        return book;
       }
-      
     });
     setBooks(updatedBookArray);
   };
+  //--------- funtion for manage filtering 
+  const handleFiltering = (e) => {
+    let filteredbooks = [...books];
+    if(e.target.matches("#rating")){
+      filteredbooks.sort((a,b)=>b.rating - a.rating);
+      setIsFilter({
+                 rating: !isfilter.rating})
+    }if(e.target.matches('#price')){
+      filteredbooks.sort((a,b)=> a.price - b.price)
+      setIsFilter({
+        price: !isfilter.price})
+    }if(e.target.matches('#name')){
+      filteredbooks.sort((a,b)=> a.bookname.localeCompare(b.bookname))
+      setIsFilter({
+        name: !isfilter.name
+    })
+    }
+    setBooks(filteredbooks);
+  }
+  //-----function for showing the favourite books
+  const showFavouriteBooks = () => {
+      setIsFilterdByFav(!isfilterdbyfav);
+      const favbooks = filteredbooks.filter((book)=> book.isfavourite);
+      setFilteredBooks(favbooks);
+  } 
 
   return (
     <>
@@ -201,6 +235,7 @@ export const MainPage = () => {
         <BookDetailsModal
           book={bookObj}
           closeModal={() => setIsDetailsModalOpen(false)}
+          handleFavourite={handleFavourite}
         />
       )}
       {/* add or edit book modal  */}
@@ -212,17 +247,24 @@ export const MainPage = () => {
       )}
       {/* header  */}
       <Header
+        books={books}
         handleView={handleView}
         listView={listView}
         open={() => setIsAddBookModalOpen(true)}
+        isfilterdbyfav={isfilterdbyfav}
+        showFavouriteBooks={showFavouriteBooks}
       />
+      {/* filterterms  */}
+      <FilterTerms filter={handleFiltering} isfilter={isfilter}/>
       {/* content  */}
       <BooksContainer
-        books={books}
+        books={isfilterdbyfav ? filteredbooks : books}
+        filteredbooks={filteredbooks}
         listView={listView}
         handleDetails={handleDetails}
         handleDlt={handleDlt}
         handleFavourite={handleFavourite}
+        isfilterdbyfav={isfilterdbyfav}
       />
       {/* footer  */}
       <Footer />
