@@ -16,7 +16,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book1.svg",
     publication: "ইসলামী ফাউন্ডেশন",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -28,7 +28,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book2.svg",
     publication: "সালসাবিল পাবলিকেশন্স",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -40,7 +40,7 @@ let ArrayOfbooks = [
     rating: 5,
     image_url: "/src/assets/images/book3.svg",
     publication: "ইসলামী ফাউন্ডেশন",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -52,7 +52,7 @@ let ArrayOfbooks = [
     rating: 3,
     image_url: "/src/assets/images/book5.svg",
     publication: "দারুস সালাম",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -64,7 +64,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book6.svg",
     publication: "দারুস সালাম",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -76,7 +76,7 @@ let ArrayOfbooks = [
     rating: 5,
     image_url: "/src/assets/images/book7.svg",
     publication: "মাকতাবাতুল আসার",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -88,7 +88,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book8.svg",
     publication: "সালসাবিল পাবলিকেশন্স",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -100,7 +100,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book9.svg",
     publication: "ইসলামী ফাউন্ডেশন",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -112,7 +112,7 @@ let ArrayOfbooks = [
     rating: 3,
     image_url: "/src/assets/images/book11.svg",
     publication: "দারুস সালাম",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -124,7 +124,7 @@ let ArrayOfbooks = [
     rating: 5,
     image_url: "/src/assets/images/book10.svg",
     publication: "মাকতাবাতুল আসার",
-    isFavourite: false,
+    isfavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -136,7 +136,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book4.svg",
     publication: "সালসাবিল পাবলিকেশন্স",
-    isFavourite: false,
+    isfavourite: false,
   },
 ];
 
@@ -178,6 +178,21 @@ export const MainPage = () => {
     const booksafterdlt = books.filter((book) => book.id !== bookId);
     setBooks(booksafterdlt);
   };
+  //--------func for handling favourite books
+  const handleFavourite = (bookId) => {
+    const updatedBookArray = books.map((book) => {
+      if (book.id === bookId) {
+        return {
+          ...book,
+          isfavourite: !book.isfavourite,
+        };
+      }else{
+        return  book;
+      }
+      
+    });
+    setBooks(updatedBookArray);
+  };
 
   return (
     <>
@@ -207,6 +222,7 @@ export const MainPage = () => {
         listView={listView}
         handleDetails={handleDetails}
         handleDlt={handleDlt}
+        handleFavourite={handleFavourite}
       />
       {/* footer  */}
       <Footer />

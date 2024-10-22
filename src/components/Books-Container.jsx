@@ -8,8 +8,8 @@ export const BooksContainer = ({
   listView,
   handleDlt,
   handleDetails,
+  handleFavourite,
 }) => {
-
   return (
     <>
       <div
@@ -24,9 +24,19 @@ export const BooksContainer = ({
           return (
             <div key={book.id}>
               {listView ? (
-                <ListViewCard book={book} handleDetails={handleDetails} handleDlt={handleDlt}/>
+                <ListViewCard
+                  book={book}
+                  handleDetails={handleDetails}
+                  handleDlt={handleDlt}
+                  handleFavourite={handleFavourite}
+                />
               ) : (
-                <BookCard book={book} handleDetails={handleDetails} handleDlt={handleDlt}/>
+                <BookCard
+                  book={book}
+                  handleDetails={handleDetails}
+                  handleDlt={handleDlt}
+                  handleFavourite={handleFavourite}
+                />
               )}
             </div>
           );

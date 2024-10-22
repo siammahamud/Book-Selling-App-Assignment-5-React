@@ -65,11 +65,11 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <subfooter className="mx-0 w-full">
+      <div className="mx-0 w-full">
         <div className=" text-center mt-10 text-gray-400 w-fit flex mx-auto">
           &copy; {currentYear}<GiBookmarklet className="text-xl text-green-700"/> BOOKTOPIA.  All rights reserved.
         </div>
-      </subfooter>
+      </div>
     </footer>
   );
 };

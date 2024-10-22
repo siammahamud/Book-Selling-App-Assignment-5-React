@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
 import { FaEdit, FaStar, FaHeart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import BookDetailsModal from "./modals/BookDetailsModal";
 
-const BookCard = ({ book, handleDetails, handleDlt }) => {
+const BookCard = ({ book, handleDetails, handleDlt, handleFavourite }) => {
   return (
     <>
-    
-
       <div
        onClick={()=>handleDetails(book)}
         key={book.id}
@@ -45,8 +42,8 @@ const BookCard = ({ book, handleDetails, handleDlt }) => {
                 <button className="text-green-600 hover:text-green-700">
                   <FaEdit />
                 </button>
-                <button className="">
-                  <FaHeart color="gray" size={25} />
+                <button onClick={()=>handleFavourite(book.id)} className="">
+                  {!book.isfavourite?<FaHeart color='black'/>:<FaHeart color="orange"/>}
                 </button>
                 <button onClick={()=>handleDlt(book.id)} className="text-red-600 hover:text-red-700">
                   <MdDeleteForever />
