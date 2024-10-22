@@ -3,7 +3,7 @@ import { FaEdit, FaStar, FaHeart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import BookDetailsModal from "./modals/BookDetailsModal";
 
-const BookCard = ({ book, handleDetails }) => {
+const BookCard = ({ book, handleDetails, handleDlt }) => {
   return (
     <>
     
@@ -48,7 +48,7 @@ const BookCard = ({ book, handleDetails }) => {
                 <button className="">
                   <FaHeart color="gray" size={25} />
                 </button>
-                <button className="text-red-600 hover:text-red-700">
+                <button onClick={()=>handleDlt(book.id)} className="text-red-600 hover:text-red-700">
                   <MdDeleteForever />
                 </button>
               </div>

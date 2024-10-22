@@ -154,16 +154,15 @@ export const MainPage = () => {
   //  state for listview and card view
   const [listView, setListView] = useState(false);
 
-useEffect(()=>{
-  localStorage.setItem('books',JSON.stringify(books))
-},[books])
+  useEffect(() => {
+    localStorage.setItem("books", JSON.stringify(books));
+  }, [books]);
 
   //-------- func for handling details modal
   const handleDetails = (b) => {
     setBookObj(b);
     setIsDetailsModalOpen(true);
   };
-
 
   //--------  function for toggle list and card view
   const handleView = () => {
@@ -174,10 +173,11 @@ useEffect(()=>{
   const handleSubmit = (book) => {
     setBooks([...books, book]);
   };
-//-----------func for delete a book
-const handleDlt = (bookId) => {
-const booksafterdlt = books.filter((book)=>book.id)
-}
+  //-----------func for delete a book
+  const handleDlt = (bookId) => {
+    const booksafterdlt = books.filter((book) => book.id !== bookId);
+    setBooks(booksafterdlt);
+  };
 
   return (
     <>
@@ -199,13 +199,14 @@ const booksafterdlt = books.filter((book)=>book.id)
       <Header
         handleView={handleView}
         listView={listView}
-        open={()=>setIsAddBookModalOpen(true)}
+        open={() => setIsAddBookModalOpen(true)}
       />
       {/* content  */}
       <BooksContainer
         books={books}
         listView={listView}
         handleDetails={handleDetails}
+        handleDlt={handleDlt}
       />
       {/* footer  */}
       <Footer />

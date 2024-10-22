@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TbXboxXFilled } from "react-icons/tb";
 const AddBookModal = ({ close, onSubmit }) => {
   const [book, setBook] = useState({
+    id:crypto.randomUUID(),
     bookname: "",
     writer: "",
     image_url: "",

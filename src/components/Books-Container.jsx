@@ -6,6 +6,7 @@ import BookCard from "./BookCard";
 export const BooksContainer = ({
   books,
   listView,
+  handleDlt,
   handleDetails,
 }) => {
 
@@ -23,9 +24,9 @@ export const BooksContainer = ({
           return (
             <div key={book.id}>
               {listView ? (
-                <ListViewCard book={book} handleDetails={handleDetails} />
+                <ListViewCard book={book} handleDetails={handleDetails} handleDlt={handleDlt}/>
               ) : (
-                <BookCard book={book} handleDetails={handleDetails} />
+                <BookCard book={book} handleDetails={handleDetails} handleDlt={handleDlt}/>
               )}
             </div>
           );

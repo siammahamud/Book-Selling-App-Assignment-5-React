@@ -2,7 +2,7 @@
 
 import { FaEdit, FaStar, FaHeart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-const ListViewCard = ({ book, handleDetails }) => {
+const ListViewCard = ({ book, handleDetails, handleDlt }) => {
   return (
     <>
       <div className="w-full max-w-4xl mx-auto bg-[#FAF7F0] rounded-lg shadow-lg p-6 flex items-center space-x-4 h-40">
@@ -39,9 +39,9 @@ const ListViewCard = ({ book, handleDetails }) => {
         <div className="flex flex-col h-full justify-between">
           {/* Icons */}
           <div className="flex flex-col items-center md:flex-row md:space-x-4 space-y-3 md:space-y-0 text-xl md:text-3xl">
-            <FaEdit className="text-yellow-500  cursor-pointer" />
-            <FaHeart color="gray" className=" cursor-pointer" />
-            <MdDeleteForever className="text-red-500  cursor-pointer" />
+            <button><FaEdit className="text-yellow-500  cursor-pointer" /></button>
+            <button><FaHeart color="gray" className=" cursor-pointer" /></button>
+            <button onClick={()=>handleDlt(book.id)}><MdDeleteForever className="text-red-500  cursor-pointer" /></button>
           </div>
 
           {/* Button */}
