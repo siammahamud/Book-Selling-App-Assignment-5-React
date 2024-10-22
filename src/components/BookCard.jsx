@@ -3,14 +3,15 @@ import { FaEdit, FaStar, FaHeart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import BookDetailsModal from "./modals/BookDetailsModal";
 
-const BookCard = ({ book, isDMopen }) => {
+const BookCard = ({ book, handleDetails }) => {
   return (
     <>
-      {isDMopen && <BookDetailsModal book={book} />}
+    
 
       <div
+       onClick={()=>handleDetails(book)}
         key={book.id}
-        className="relative shadow-md dark:shadow-md rounded-lg group z-0 w-40 md:w-44 h-60 overflow-hidden"
+        className="cursor-pointer relative shadow-md dark:shadow-md rounded-lg group z-0 w-40 md:w-44 h-60 overflow-hidden"
       >
         {/* Book Image */}
         <div className="w-full h-full">
@@ -40,7 +41,7 @@ const BookCard = ({ book, isDMopen }) => {
             </div>
             <div>
               {/* Action Icons */}
-              <div className="text-2xl flex justify-center w-full  space-x-6">
+              <div onClick={(e)=>e.stopPropagation()} className="text-2xl flex justify-center w-full  space-x-6">
                 <button className="text-green-600 hover:text-green-700">
                   <FaEdit />
                 </button>
@@ -52,8 +53,8 @@ const BookCard = ({ book, isDMopen }) => {
                 </button>
               </div>
               {/* Price and Button */}
-              <div className="flex justify-between w-full items-center mt-3">
-                <h2 className="text-xl font-bold text-indigo-700">
+              <div  className="flex justify-between w-full items-center mt-3">
+                <h2  onClick={(e)=>e.stopPropagation()} className="text-xl font-bold text-indigo-700">
                   {book.price}
                   <span className="font-extrabold text-xl -space-x-4">৳</span>
                 </h2>

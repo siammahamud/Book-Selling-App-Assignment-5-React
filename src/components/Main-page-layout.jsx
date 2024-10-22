@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import BookDetailsModal from "./modals/BookDetailsModal";
 import { BooksContainer } from "./Books-Container";
 import Header from "./Header";
 import Footer from "./Footer";
+import AddBookModal from "./modals/AddEdit-Book-Modal";
+import { getBookFromLocalStorage } from "./localStorage";
 let ArrayOfbooks = [
   {
     id: crypto.randomUUID(),
@@ -13,7 +16,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book1.svg",
     publication: "ইসলামী ফাউন্ডেশন",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -25,7 +28,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book2.svg",
     publication: "সালসাবিল পাবলিকেশন্স",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -37,7 +40,7 @@ let ArrayOfbooks = [
     rating: 5,
     image_url: "/src/assets/images/book3.svg",
     publication: "ইসলামী ফাউন্ডেশন",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -49,7 +52,7 @@ let ArrayOfbooks = [
     rating: 3,
     image_url: "/src/assets/images/book5.svg",
     publication: "দারুস সালাম",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -61,7 +64,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book6.svg",
     publication: "দারুস সালাম",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -73,7 +76,7 @@ let ArrayOfbooks = [
     rating: 5,
     image_url: "/src/assets/images/book7.svg",
     publication: "মাকতাবাতুল আসার",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -85,7 +88,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book8.svg",
     publication: "সালসাবিল পাবলিকেশন্স",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -97,7 +100,7 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book9.svg",
     publication: "ইসলামী ফাউন্ডেশন",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -109,7 +112,7 @@ let ArrayOfbooks = [
     rating: 3,
     image_url: "/src/assets/images/book11.svg",
     publication: "দারুস সালাম",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -121,7 +124,7 @@ let ArrayOfbooks = [
     rating: 5,
     image_url: "/src/assets/images/book10.svg",
     publication: "মাকতাবাতুল আসার",
-    isFavourite: false
+    isFavourite: false,
   },
   {
     id: crypto.randomUUID(),
@@ -133,27 +136,79 @@ let ArrayOfbooks = [
     rating: 4,
     image_url: "/src/assets/images/book4.svg",
     publication: "সালসাবিল পাবলিকেশন্স",
-    isFavourite: false
+    isFavourite: false,
   },
 ];
 
-
-
 export const MainPage = () => {
   // all books array state
-  const [books, setBooks] = useState(ArrayOfbooks);
+  const [books, setBooks] = useState(ArrayOfbooks && getBookFromLocalStorage());
+
+  // state to keep a single book object
+  const [bookObj, setBookObj] = useState({});
+
+  // state for modals opening and closing
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
+
   //  state for listview and card view
   const [listView, setListView] = useState(false);
+
+useEffect(()=>{
+  localStorage.setItem('books',JSON.stringify(books))
+},[books])
+
+  //-------- func for handling details modal
+  const handleDetails = (b) => {
+    setBookObj(b);
+    setIsDetailsModalOpen(true);
+  };
+
+
   //--------  function for toggle list and card view
   const handleView = () => {
     setListView(!listView);
   };
 
+  //--------  function for toggle list and card view
+  const handleSubmit = (book) => {
+    setBooks([...books, book]);
+  };
+//-----------func for delete a book
+const handleDlt = (bookId) => {
+const booksafterdlt = books.filter((book)=>book.id)
+}
+
   return (
     <>
-      <Header handleView={handleView} listView={listView} />
-      <BooksContainer books={books} listView={listView} />
-      <Footer/>
+      {/* book details modal  */}
+      {isDetailsModalOpen && (
+        <BookDetailsModal
+          book={bookObj}
+          closeModal={() => setIsDetailsModalOpen(false)}
+        />
+      )}
+      {/* add or edit book modal  */}
+      {isAddBookModalOpen && (
+        <AddBookModal
+          onSubmit={handleSubmit}
+          close={() => setIsAddBookModalOpen(false)}
+        />
+      )}
+      {/* header  */}
+      <Header
+        handleView={handleView}
+        listView={listView}
+        open={()=>setIsAddBookModalOpen(true)}
+      />
+      {/* content  */}
+      <BooksContainer
+        books={books}
+        listView={listView}
+        handleDetails={handleDetails}
+      />
+      {/* footer  */}
+      <Footer />
     </>
   );
 };

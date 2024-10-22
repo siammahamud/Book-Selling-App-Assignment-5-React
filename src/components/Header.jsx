@@ -8,9 +8,9 @@ import {
   FiPlusCircle,
 } from "react-icons/fi"; // Replace with correct icons
 
-const Header = ({ handleView,listView }) => {
+const Header = ({ handleView,listView, open}) => {
   return (
-    <header className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-50">
+    <header className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-40">
       {/* Logo */}
       <div className="flex items-center">
         <GiBookmarklet className="text-4xl text-green-500" />
@@ -42,7 +42,7 @@ const Header = ({ handleView,listView }) => {
         <button>
           <FiSun className="text-2xl text-gray-700" />
         </button>
-        <button className="flex items-center  md:px-4 md:py-2 text-sm font-medium text-green-600 md:border border-green-600 rounded-md hover:bg-green-100">
+        <button onClick={open} className="flex items-center  md:px-4 md:py-2 text-sm font-medium text-green-600 md:border border-green-600 rounded-md hover:bg-green-100">
           <FiPlusCircle className="mr-2 text-2xl" />
           <span className="hidden md:block">Add Book</span>
         </button>
