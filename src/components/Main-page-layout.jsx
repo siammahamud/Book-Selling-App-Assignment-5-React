@@ -148,21 +148,21 @@ export const MainPage = () => {
   const [filteredbooks, setFilteredBooks] = useState(books);
   // state to keep a single book object
   const [bookObj, setBookObj] = useState({});
-
+ // state to keep track of seach input value
+ const [searchquery, setSearchQuery] = useState("")
   // state for modals opening and closing
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
-
-  const [isfilterdbyfav,setIsFilterdByFav] = useState(false);
+  const [isfilterdbyfav, setIsFilterdByFav] = useState(false);
   //  state for listview and card view
   const [listView, setListView] = useState(false);
-  //state for manage filtering 
+  //state for manage filtering
   const [isfilter, setIsFilter] = useState({
-    rating:false,
-    price:false,
-    name:false,
-    favrouite:false,
-  })
+    rating: false,
+    price: false,
+    name: false,
+    favrouite: false,
+  });
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(books));
@@ -202,31 +202,65 @@ export const MainPage = () => {
     });
     setBooks(updatedBookArray);
   };
-  //--------- funtion for manage filtering 
+  //--------- funtion for manage filtering
   const handleFiltering = (e) => {
     let filteredbooks = [...books];
-    if(e.target.matches("#rating")){
-      filteredbooks.sort((a,b)=>b.rating - a.rating);
+    if (e.target.matches("#rating")) {
+      filteredbooks.sort((a, b) => b.rating - a.rating);
       setIsFilter({
-                 rating: !isfilter.rating})
-    }if(e.target.matches('#price')){
-      filteredbooks.sort((a,b)=> a.price - b.price)
+        rating: !isfilter.rating,
+      });
+    }
+    if (e.target.matches("#price")) {
+      filteredbooks.sort((a, b) => a.price - b.price);
       setIsFilter({
-        price: !isfilter.price})
-    }if(e.target.matches('#name')){
-      filteredbooks.sort((a,b)=> a.bookname.localeCompare(b.bookname))
+        price: !isfilter.price,
+      });
+    }
+    if (e.target.matches("#name")) {
+      filteredbooks.sort((a, b) => a.bookname.localeCompare(b.bookname));
       setIsFilter({
-        name: !isfilter.name
-    })
+        name: !isfilter.name,
+      });
     }
     setBooks(filteredbooks);
-  }
+  };
   //-----function for showing the favourite books
   const showFavouriteBooks = () => {
-      setIsFilterdByFav(!isfilterdbyfav);
-      const favbooks = filteredbooks.filter((book)=> book.isfavourite);
-      setFilteredBooks(favbooks);
-  } 
+    setIsFilterdByFav(!isfilterdbyfav);
+    const favbooks = filteredbooks.filter((book) => book.isfavourite);
+    setFilteredBooks(favbooks);
+  };
+    //-----function for search
+    const handleChange = (e) => {
+      setSearchQuery(e.target.value.toLowerCase().trim())
+      handleSearch()
+    }
+
+    // useEffect(()=>{
+    //    const timerId = setTimeout(() => {
+    //     if(searchquery){
+    //       const searchedbooks = books.filter((book) =>
+    //         book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
+    //       )
+    //       setFilteredBooks(searchedbooks)
+    //     }else{
+    //      setFilteredBooks(books)
+    //     }
+    //    }, 600);
+    //    return () => clearTimeout(timerId);
+    // },[searchquery,books])
+
+  const handleSearch = () => {
+    if(searchquery){
+      const searchedbooks = books.filter((book) =>
+        book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
+      )
+      setFilteredBooks(searchedbooks)
+    }else{
+     setFilteredBooks(books)
+    }
+  };
 
   return (
     <>
@@ -253,18 +287,18 @@ export const MainPage = () => {
         open={() => setIsAddBookModalOpen(true)}
         isfilterdbyfav={isfilterdbyfav}
         showFavouriteBooks={showFavouriteBooks}
+        handleChange = {handleChange}
+        searchquery={searchquery}
       />
       {/* filterterms  */}
-      <FilterTerms filter={handleFiltering} isfilter={isfilter}/>
+      <FilterTerms filter={handleFiltering} isfilter={isfilter} />
       {/* content  */}
       <BooksContainer
-        books={isfilterdbyfav ? filteredbooks : books}
-        filteredbooks={filteredbooks}
+        books={isfilterdbyfav || searchquery ? filteredbooks : books}
         listView={listView}
         handleDetails={handleDetails}
         handleDlt={handleDlt}
         handleFavourite={handleFavourite}
-        isfilterdbyfav={isfilterdbyfav}
       />
       {/* footer  */}
       <Footer />

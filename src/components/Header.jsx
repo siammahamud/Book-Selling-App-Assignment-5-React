@@ -3,9 +3,17 @@ import { GiBookmarklet } from "react-icons/gi";
 import { FaList, FaHeart } from "react-icons/fa";
 import { MdFolderDelete } from "react-icons/md";
 // import { IoMoonOutline } from "react-icons/io5";
-import { FiGrid, FiSun, FiPlusCircle } from "react-icons/fi"; // Replace with correct icons
+import { FiGrid, FiSun, FiPlusCircle } from "react-icons/fi";
 
-const Header = ({ handleView, listView, open, isfilterdbyfav,showFavouriteBooks }) => {
+const Header = ({
+  handleView,
+  listView,
+  open,
+  isfilterdbyfav,
+  showFavouriteBooks,
+  searchquery,
+  handleChange,
+}) => {
   return (
     <header className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-40">
       {/* Logo */}
@@ -16,9 +24,11 @@ const Header = ({ handleView, listView, open, isfilterdbyfav,showFavouriteBooks 
       {/* Search bar */}
       <div className=" mx-4 w-1/2">
         <input
+          onChange={handleChange}
           type="text"
           placeholder="Search"
           className="w-full px-4 py-2 bg-green-100 rounded-md focus:outline-none focus:ring ring-green-500"
+          value={searchquery}
         />
       </div>
 
@@ -31,11 +41,12 @@ const Header = ({ handleView, listView, open, isfilterdbyfav,showFavouriteBooks 
             <FaList className="text-2xl text-gray-700" />
           )}
         </button>
-        <button
-           onClick={showFavouriteBooks}
-          id="favourite"
-        >
-          <FaHeart className={`text-2xl ${isfilterdbyfav?'text-yellow-500':'text-gray-300'}`} />
+        <button onClick={showFavouriteBooks} id="favourite">
+          <FaHeart
+            className={`text-2xl ${
+              isfilterdbyfav ? "text-yellow-500" : "text-gray-300"
+            }`}
+          />
         </button>
         <button>
           <MdFolderDelete className="text-3xl text-red-500" />
