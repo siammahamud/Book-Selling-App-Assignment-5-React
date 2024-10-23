@@ -234,33 +234,24 @@ export const MainPage = () => {
     //-----function for search
     const handleChange = (e) => {
       setSearchQuery(e.target.value.toLowerCase().trim())
-      handleSearch()
+    
     }
 
-    // useEffect(()=>{
-    //    const timerId = setTimeout(() => {
-    //     if(searchquery){
-    //       const searchedbooks = books.filter((book) =>
-    //         book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
-    //       )
-    //       setFilteredBooks(searchedbooks)
-    //     }else{
-    //      setFilteredBooks(books)
-    //     }
-    //    }, 600);
-    //    return () => clearTimeout(timerId);
-    // },[searchquery,books])
+    useEffect(()=>{
+       const timerId = setTimeout(() => {
+        if(searchquery){
+          const searchedbooks = books.filter((book) =>
+            book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
+          )
+          setFilteredBooks(searchedbooks)
+        }else{
+         setFilteredBooks(books)
+        }
+       }, 500);
+       return () => clearTimeout(timerId);
+    },[searchquery,books])
 
-  const handleSearch = () => {
-    if(searchquery){
-      const searchedbooks = books.filter((book) =>
-        book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
-      )
-      setFilteredBooks(searchedbooks)
-    }else{
-     setFilteredBooks(books)
-    }
-  };
+ 
 
   return (
     <>
