@@ -2,7 +2,7 @@
 import { GiBookmarklet } from "react-icons/gi";
 import { FaList, FaHeart } from "react-icons/fa";
 import { MdFolderDelete } from "react-icons/md";
-// import { IoMoonOutline } from "react-icons/io5";
+import { IoMoonOutline } from "react-icons/io5";
 import { FiGrid, FiSun, FiPlusCircle } from "react-icons/fi";
 
 const Header = ({
@@ -13,6 +13,8 @@ const Header = ({
   showFavouriteBooks,
   searchquery,
   handleChange,
+  toggleTheme,
+  theme,
 }) => {
   return (
     <header className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-40">
@@ -51,12 +53,21 @@ const Header = ({
         <button>
           <MdFolderDelete className="text-3xl text-red-500" />
         </button>
-        <button>
-          <FiSun className="text-2xl text-gray-700" />
+        <button onClick={toggleTheme} className="relative w-8 h-6 text-2xl">
+          <IoMoonOutline
+            className={`absolute top-0 transition-all duration-500 ease-in-out fill-current text-yellow-500 transform ${
+              theme === "dark"
+                ? "opacity-100 rotate-0 scale-100"
+                : "opacity-0 -rotate-180 scale-0"
+            }`}
+          />
+          <FiSun className={`absolute top-0 transition-all duration-500 ease-in-out fill-current text-yellow-500 transform ${
+              theme === "dark"
+                ? "opacity-0 -rotate-180 scale-0"
+                : "opacity-100 rotate-0 scale-100"
+            }`}/>
         </button>
-        {/* <button>
-          <IoMoonOutline className="text-2xl dark:text-white text-gray-700" />
-        </button> */}
+
         <button
           onClick={open}
           className="flex items-center  md:px-4 md:py-2 text-sm font-medium text-green-600 md:border border-green-600 rounded-md hover:bg-green-100"

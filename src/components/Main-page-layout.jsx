@@ -4,7 +4,10 @@ import { BooksContainer } from "./Books-Container";
 import Header from "./Header";
 import Footer from "./Footer";
 import AddBookModal from "./modals/AddEdit-Book-Modal";
-import { getBookFromLocalStorage } from "./localStorage";
+import {
+  getBookFromLocalStorage,
+  getThemeFromLocalStorage,
+} from "./localStorage";
 import FilterTerms from "./filterTerms";
 
 let ArrayOfbooks = [
@@ -148,8 +151,8 @@ export const MainPage = () => {
   const [filteredbooks, setFilteredBooks] = useState(books);
   // state to keep a single book object
   const [bookObj, setBookObj] = useState({});
- // state to keep track of seach input value
- const [searchquery, setSearchQuery] = useState("")
+  // state to keep track of seach input value
+  const [searchquery, setSearchQuery] = useState("");
   // state for modals opening and closing
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isAddBookModalOpen, setIsAddBookModalOpen] = useState(false);
@@ -163,10 +166,18 @@ export const MainPage = () => {
     name: false,
     favrouite: false,
   });
+  // state for manage dark mode
+  const [theme, setTheme] = useState(getThemeFromLocalStorage());
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(books));
-  }, [books]);
+    localStorage.setItem("theme", theme);
+    document.documentElement.className = theme;
+  }, [books, theme]);
+  //-------- func for handle the theme
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   //-------- func for handling details modal
   const handleDetails = (b) => {
@@ -231,27 +242,24 @@ export const MainPage = () => {
     const favbooks = filteredbooks.filter((book) => book.isfavourite);
     setFilteredBooks(favbooks);
   };
-    //-----function for search
-    const handleChange = (e) => {
-      setSearchQuery(e.target.value.toLowerCase().trim())
-    
-    }
+  //-----function for search
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase().trim());
+  };
 
-    useEffect(()=>{
-       const timerId = setTimeout(() => {
-        if(searchquery){
-          const searchedbooks = books.filter((book) =>
-            book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
-          )
-          setFilteredBooks(searchedbooks)
-        }else{
-         setFilteredBooks(books)
-        }
-       }, 500);
-       return () => clearTimeout(timerId);
-    },[searchquery,books])
-
- 
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      if (searchquery) {
+        const searchedbooks = books.filter((book) =>
+          book.bookname.toLowerCase().includes(searchquery.trim().toLowerCase())
+        );
+        setFilteredBooks(searchedbooks);
+      } else {
+        setFilteredBooks(books);
+      }
+    }, 500);
+    return () => clearTimeout(timerId);
+  }, [searchquery, books]);
 
   return (
     <>
@@ -278,8 +286,10 @@ export const MainPage = () => {
         open={() => setIsAddBookModalOpen(true)}
         isfilterdbyfav={isfilterdbyfav}
         showFavouriteBooks={showFavouriteBooks}
-        handleChange = {handleChange}
+        handleChange={handleChange}
         searchquery={searchquery}
+        toggleTheme={toggleTheme}
+        theme={theme}
       />
       {/* filterterms  */}
       <FilterTerms filter={handleFiltering} isfilter={isfilter} />

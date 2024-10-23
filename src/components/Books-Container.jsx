@@ -10,10 +10,9 @@ export const BooksContainer = ({
   handleDetails,
   handleFavourite,
 }) => {
- 
   return (
     <>
-     {/* {books.length < 1 && <NoBook/>} */}
+      {books.length < 1 && <NoBook />}
       <div
         className={`w-[95vw] md:w-[90vw] mx-auto py-10 ${
           !listView
@@ -21,7 +20,6 @@ export const BooksContainer = ({
             : "space-y-8"
         } `}
       >
-       
         {/* // book gallary container */}
         {books.map((book) => {
           return (
