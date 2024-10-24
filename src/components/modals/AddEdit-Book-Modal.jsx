@@ -43,9 +43,9 @@ const AddBookModal = ({ close, onSubmit }) => {
  
   return (
     // modal wrapper
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50  ">
+    <div className="fixed inset-0 dark:text-black bg-black/50 flex justify-center items-center z-50   ">
       {/* modal body  */}
-      <div className="bg-white rounded-lg p-8 w-full max-w-2xl relative">
+      <div className="dark:bg-gray-400 bg-white rounded-lg p-8 w-full max-w-2xl relative">
         {/* form title  and close button  */}
         <button
           className="absolute top-4 right-4 text-red-500 text-3xl"
@@ -86,7 +86,7 @@ const AddBookModal = ({ close, onSubmit }) => {
                 name="writer"
                 value={book.writer}
                 onChange={handleChange}
-                className="w-full px-4 py-1 border rounded-lg bg-gray-100"
+                className="w-full px-4 py-1 border rounded-lg bg-gray-100 "
               />
             </div>
             <div>

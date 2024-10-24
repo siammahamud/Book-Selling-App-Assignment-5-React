@@ -13,7 +13,7 @@ const BookDetailsModal = ({ book, closeModal,handleFavourite}) => {
       {/* modal container  */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white rounded-lg p-8 w-full max-w-4xl h-auto relative"
+        className="bg-white rounded-lg p-8 w-full max-w-4xl h-auto relative dark:bg-gray-400"
       >
         {/* top content  */}
         <div className="flex justify-between items-center">

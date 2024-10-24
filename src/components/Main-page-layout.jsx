@@ -8,7 +8,6 @@ import {
   getBookFromLocalStorage,
   getThemeFromLocalStorage,
 } from "./localStorage";
-import FilterTerms from "./filterTerms";
 
 let ArrayOfbooks = [
   {
@@ -262,7 +261,7 @@ export const MainPage = () => {
   }, [searchquery, books]);
 
   return (
-    <>
+    <div className="dark:bg-dark">
       {/* book details modal  */}
       {isDetailsModalOpen && (
         <BookDetailsModal
@@ -303,6 +302,6 @@ export const MainPage = () => {
       />
       {/* footer  */}
       <Footer />
-    </>
+    </div>
   );
 };

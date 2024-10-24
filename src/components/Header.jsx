@@ -17,14 +17,14 @@ const Header = ({
   theme,
 }) => {
   return (
-    <header className="flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-40">
+    <header className="dark:bg-dark dark:border-b-2 dark:border-slate-400 flex justify-between items-center p-4 bg-white/50 backdrop-blur-md shadow-md fixed top-0 w-full z-40">
       {/* Logo */}
       <div className="flex items-center">
         <GiBookmarklet className="text-4xl text-green-500" />
       </div>
 
       {/* Search bar */}
-      <div className=" mx-4 w-1/2">
+      <div className="dark:text-black mx-4 w-1/2">
         <input
           onChange={handleChange}
           type="text"

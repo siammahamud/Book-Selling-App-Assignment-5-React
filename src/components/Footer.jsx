@@ -4,7 +4,7 @@ import { GiBookmarklet } from "react-icons/gi";
 const Footer = () => {
   const [currentYear] = useState(new Date().getFullYear());
   return (
-    <footer className="bg-gray-100 py-8 px-4 md:px-32 text-gray-700">
+    <footer className="dark:bg-dark dark:border-t-2 border-slate-400 bg-gray-100 py-8 px-4 md:px-32 text-gray-700">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
           <h4 className="font-bold text-xl mb-2">Services</h4>

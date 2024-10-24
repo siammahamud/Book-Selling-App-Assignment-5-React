@@ -14,7 +14,7 @@ export const BooksContainer = ({
     <>
       {books.length < 1 && <NoBook />}
       <div
-        className={`w-[95vw] md:w-[90vw] mx-auto py-10 ${
+        className={`dark:bg-dark  w-[95vw] md:w-[90vw] mx-auto py-10 ${
           !listView
             ? "flex flex-wrap gap-4 md:gap-8 justify-center"
             : "space-y-8"
