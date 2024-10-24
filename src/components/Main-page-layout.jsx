@@ -4,6 +4,7 @@ import { BooksContainer } from "./Books-Container";
 import Header from "./Header";
 import Footer from "./Footer";
 import AddBookModal from "./modals/AddEdit-Book-Modal";
+import FilterTerms from "./FilterTerms";
 import {
   getBookFromLocalStorage,
   getThemeFromLocalStorage,
