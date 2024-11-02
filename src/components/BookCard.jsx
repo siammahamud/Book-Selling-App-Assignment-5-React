@@ -2,11 +2,17 @@
 import { FaEdit, FaStar, FaHeart } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
-const BookCard = ({ book, handleDetails, handleDlt, handleFavourite }) => {
+const BookCard = ({
+  book,
+  handleDetails,
+  handleDlt,
+  handleFavourite,
+  handleEditBook,
+}) => {
   return (
     <>
       <div
-       onClick={()=>handleDetails(book)}
+        onClick={() => handleDetails(book)}
         key={book.id}
         className="cursor-pointer relative shadow-md dark:shadow-md rounded-lg group z-0 w-40 md:w-44 h-60 overflow-hidden"
       >
@@ -38,20 +44,36 @@ const BookCard = ({ book, handleDetails, handleDlt, handleFavourite }) => {
             </div>
             <div>
               {/* Action Icons */}
-              <div onClick={(e)=>e.stopPropagation()} className="text-2xl flex justify-center w-full  space-x-6">
-                <button className="text-green-600 hover:text-green-700">
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="text-2xl flex justify-center w-full  space-x-6"
+              >
+                <button
+                  onClick={()=>handleEditBook(book)}
+                  className="text-green-600 hover:text-green-700"
+                >
                   <FaEdit />
                 </button>
-                <button onClick={()=>handleFavourite(book.id)} className="">
-                  {!book.isfavourite?<FaHeart color='black'/>:<FaHeart color="orange"/>}
+                <button onClick={() => handleFavourite(book.id)} className="">
+                  {!book.isfavourite ? (
+                    <FaHeart color="black" />
+                  ) : (
+                    <FaHeart color="orange" />
+                  )}
                 </button>
-                <button onClick={()=>handleDlt(book.id)} className="text-red-600 hover:text-red-700">
+                <button
+                  onClick={() => handleDlt(book.id)}
+                  className="text-red-600 hover:text-red-700"
+                >
                   <MdDeleteForever />
                 </button>
               </div>
               {/* Price and Button */}
-              <div  className="flex justify-between w-full items-center mt-3">
-                <h2  onClick={(e)=>e.stopPropagation()} className="text-xl font-bold text-indigo-700">
+              <div className="flex justify-between w-full items-center mt-3">
+                <h2
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-xl font-bold text-indigo-700"
+                >
                   {book.price}
                   <span className="font-extrabold text-xl -space-x-4">৳</span>
                 </h2>

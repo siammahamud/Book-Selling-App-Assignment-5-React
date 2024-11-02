@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { TbXboxXFilled } from "react-icons/tb";
-const AddBookModal = ({ close, onSubmit }) => {
-  const [book, setBook] = useState({
-    id:crypto.randomUUID(),
-    bookname: "",
-    writer: "",
-    image_url: "",
-    details: "",
-    rating: "",
-    price: "",
-    isfavourite: false,
-  });
+const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
+  const [book, setBook] = useState(
+    isBookEdit || {
+      id: crypto.randomUUID(),
+      bookname: "",
+      writer: "",
+      image_url: "",
+      details: "",
+      rating: "",
+      price: "",
+      isfavourite: false,
+    }
+  );
+
   const [error, setError] = useState("");
 
   //---------func for setting up the input values to book state
@@ -36,11 +39,10 @@ const AddBookModal = ({ close, onSubmit }) => {
     ) {
       setError("All input fields must be filled out...");
     } else {
-      onSubmit(book);
-      close();
+      handleAddEdit(book);
     }
   };
- 
+
   return (
     // modal wrapper
     <div className="fixed inset-0 dark:text-black bg-black/50 flex justify-center items-center z-50   ">
@@ -49,7 +51,7 @@ const AddBookModal = ({ close, onSubmit }) => {
         {/* form title  and close button  */}
         <button
           className="absolute top-4 right-4 text-red-500 text-3xl"
-          onClick={close}
+          onClick={onCloseModal}
         >
           <TbXboxXFilled />
         </button>

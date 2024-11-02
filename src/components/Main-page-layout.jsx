@@ -147,7 +147,9 @@ let ArrayOfbooks = [
 
 export const MainPage = () => {
   // all books array state
-  const [books, setBooks] = useState(ArrayOfbooks && getBookFromLocalStorage());
+  const [books, setBooks] = useState(
+    () => getBookFromLocalStorage() || ArrayOfbooks
+  );
   const [filteredbooks, setFilteredBooks] = useState(books);
   // state to keep a single book object
   const [bookObj, setBookObj] = useState({});
@@ -168,6 +170,8 @@ export const MainPage = () => {
   });
   // state for manage dark mode
   const [theme, setTheme] = useState(getThemeFromLocalStorage());
+  // state for manage edit
+  const [isBookEdit, setIsBookEdit] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("books", JSON.stringify(books));
@@ -189,10 +193,30 @@ export const MainPage = () => {
   const handleView = () => {
     setListView(!listView);
   };
-
-  //--------  function for toggle list and card view
-  const handleSubmit = (book) => {
-    setBooks([...books, book]);
+  //----------function for add or edit book
+  const handleAddEdit = (newbook) => {
+    if (isBookEdit) {
+      setBooks(
+        books.map((book) => {
+          if (book.id === newbook.id) {
+            return newbook;
+          }
+          return book;
+        })
+      )
+    } else {
+      setBooks([...books, newbook]);
+    }
+    handleCloseModal();
+  };
+  /////////////////////////////////////////////////////////////////////
+  const handleEditBook = (b) => {
+    setIsBookEdit(b);
+    setIsAddBookModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsAddBookModalOpen(false);
+    setIsBookEdit(null);
   };
   //-----------func for delete a book
   const handleDlt = (bookId) => {
@@ -267,15 +291,18 @@ export const MainPage = () => {
       {isDetailsModalOpen && (
         <BookDetailsModal
           book={bookObj}
-          closeModal={() => setIsDetailsModalOpen(false)}
+          closeModal={() => {
+            setIsDetailsModalOpen(false);
+          }}
           handleFavourite={handleFavourite}
         />
       )}
       {/* add or edit book modal  */}
       {isAddBookModalOpen && (
         <AddBookModal
-          onSubmit={handleSubmit}
-          close={() => setIsAddBookModalOpen(false)}
+          isBookEdit={isBookEdit}
+          handleAddEdit={handleAddEdit}
+          onCloseModal={handleCloseModal}
         />
       )}
       {/* header  */}
@@ -300,6 +327,7 @@ export const MainPage = () => {
         handleDetails={handleDetails}
         handleDlt={handleDlt}
         handleFavourite={handleFavourite}
+        handleEditBook={handleEditBook}
       />
       {/* footer  */}
       <Footer />

@@ -9,6 +9,7 @@ export const BooksContainer = ({
   handleDlt,
   handleDetails,
   handleFavourite,
+  handleEditBook
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ export const BooksContainer = ({
                   handleDetails={handleDetails}
                   handleDlt={handleDlt}
                   handleFavourite={handleFavourite}
+                  handleEditBook={handleEditBook}
                 />
               ) : (
                 <BookCard
@@ -37,6 +39,7 @@ export const BooksContainer = ({
                   handleDetails={handleDetails}
                   handleDlt={handleDlt}
                   handleFavourite={handleFavourite}
+                  handleEditBook={handleEditBook}
                 />
               )}
             </div>
