@@ -15,7 +15,7 @@ export const BooksContainer = ({
     <>
       {books.length < 1 && <NoBook />}
       <div
-        className={`dark:bg-dark  w-[95vw] md:w-[90vw] mx-auto py-10 ${
+        className={`dark:bg-dark  w-[95vw] md:w-[90vw] mx-auto py-10 min-h-[70vh] ${
           !listView
             ? "flex flex-wrap gap-4 md:gap-8 justify-center"
             : "space-y-8"
@@ -24,7 +24,7 @@ export const BooksContainer = ({
         {/* // book gallary container */}
         {books.map((book) => {
           return (
-            <div key={book.id}>
+            <div className="h-fit" key={book.id}>
               {listView ? (
                 <ListViewCard
                   book={book}

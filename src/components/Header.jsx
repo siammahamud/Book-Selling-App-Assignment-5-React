@@ -26,6 +26,7 @@ const Header = ({
       {/* Search bar */}
       <div className="dark:text-black mx-4 w-1/2">
         <input
+          id="search-bar"
           onChange={handleChange}
           type="text"
           placeholder="Search"
@@ -35,12 +36,12 @@ const Header = ({
       </div>
 
       {/* Icons */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-4 ">
         <button onClick={handleView}>
           {listView ? (
-            <FiGrid className="text-2xl text-gray-700" />
+            <FiGrid className=" dark:text-white text-2xl text-gray-700" />
           ) : (
-            <FaList className="text-2xl text-gray-700" />
+            <FaList className="dark:text-white text-2xl text-gray-700" />
           )}
         </button>
         <button onClick={showFavouriteBooks} id="favourite">
@@ -67,7 +68,6 @@ const Header = ({
                 : "opacity-100 rotate-0 scale-100"
             }`}/>
         </button>
-
         <button
           onClick={open}
           className="flex items-center  md:px-4 md:py-2 text-sm font-medium text-green-600 md:border border-green-600 rounded-md hover:bg-green-100"

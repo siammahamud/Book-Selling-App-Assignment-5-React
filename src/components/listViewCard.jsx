@@ -11,7 +11,7 @@ const ListViewCard = ({
 }) => {
   return (
     <>
-      <div className="w-full max-w-4xl mx-auto bg-[#FAF7F0] rounded-lg shadow-lg p-6 flex items-center space-x-4 h-40">
+      <div className="w-full max-w-4xl mx-auto bg-[#FAF7F0] rounded-lg shadow-lg p-6 flex items-center space-x-4 sm:h-40 h-auto">
         {/* Image */}
         <div className="flex-shrink-0">
           <img

@@ -194,8 +194,10 @@ export const MainPage = () => {
     setListView(!listView);
   };
   //----------function for add or edit book
-  const handleAddEdit = (newbook) => {
-    if (isBookEdit) {
+  const handleAddEdit = (newbook, isAddBook) => {
+    if (isAddBook) {
+      setBooks([...books, newbook]);
+    } else {
       setBooks(
         books.map((book) => {
           if (book.id === newbook.id) {
@@ -203,11 +205,9 @@ export const MainPage = () => {
           }
           return book;
         })
-      )
-    } else {
-      setBooks([...books, newbook]);
+      );
     }
-    handleCloseModal();
+    setIsAddBookModalOpen(false);
   };
   /////////////////////////////////////////////////////////////////////
   const handleEditBook = (b) => {
@@ -330,6 +330,7 @@ export const MainPage = () => {
         handleEditBook={handleEditBook}
       />
       {/* footer  */}
+
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { TbXboxXFilled } from "react-icons/tb";
 const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
+  const [isAddBook] = useState(Object.is(isBookEdit,null))
   const [book, setBook] = useState(
     isBookEdit || {
       id: crypto.randomUUID(),
@@ -32,14 +33,14 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
       !book.bookname.trim() ||
       !book.details.trim() ||
       !book.image_url.trim() ||
-      !book.price.trim() ||
-      !book.rating.trim() ||
+      !book.price ||
+      !book.rating ||
       !book.writer.trim() ||
       !book.publication.trim()
     ) {
       setError("All input fields must be filled out...");
     } else {
-      handleAddEdit(book);
+      handleAddEdit(book,isAddBook);
     }
   };
 
@@ -59,10 +60,10 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
           Add a Book
         </h2>
         {/* form  */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form id="addbook" onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-x-10 gap-y-4">
             <div>
-              <label className="block font-medium">Book Name</label>
+              <label htmlFor="bookname" className="block font-medium">Book Name</label>
               <input
                 type="text"
                 name="bookname"
@@ -72,7 +73,7 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
               />
             </div>
             <div>
-              <label className="block font-medium">Rating</label>
+              <label htmlFor="rating" className="block font-medium">Rating</label>
               <input
                 type="number"
                 name="rating"
@@ -82,7 +83,7 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
               />
             </div>
             <div>
-              <label className="block font-medium">Author Name</label>
+              <label htmlFor="writer" className="block font-medium">Author Name</label>
               <input
                 type="text"
                 name="writer"
@@ -92,7 +93,7 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
               />
             </div>
             <div>
-              <label className="block font-medium">Price</label>
+              <label htmlFor="price" className="block font-medium">Price</label>
               <input
                 type="number"
                 name="price"
@@ -102,7 +103,7 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
               />
             </div>
             <div>
-              <label className="block font-medium">Image URL</label>
+              <label htmlFor="image_url" className="block font-medium">Image URL</label>
               <input
                 type="text"
                 name="image_url"
@@ -112,7 +113,7 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
               />
             </div>
             <div>
-              <label className="block font-medium">Publication</label>
+              <label htmlFor="publication" className="block font-medium">Publication</label>
               <input
                 type="text"
                 name="publication"
@@ -124,7 +125,7 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
           </div>
           <div>
             {/* textarea  */}
-            <label className="block font-medium">Book Details</label>
+            <label htmlFor="details" className="block font-medium">Book Details</label>
             <textarea
               name="details"
               value={book.details}
@@ -133,7 +134,6 @@ const AddBookModal = ({ onCloseModal, handleAddEdit, isBookEdit }) => {
             ></textarea>
           </div>
           {/* error message  */}
-
           {error && <div className="text-center text-red-400">{error}</div>}
 
           {/* submit button  */}
