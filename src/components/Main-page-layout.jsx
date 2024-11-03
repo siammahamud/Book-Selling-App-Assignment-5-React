@@ -285,7 +285,7 @@ export const MainPage = () => {
     return () => clearTimeout(timerId);
   }, [searchquery, books]);
 
-  return (
+  return (  
     <div className="dark:bg-dark">
       {/* book details modal  */}
       {isDetailsModalOpen && (
