@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
+  /* eslint-disable react/prop-types */
 import { GiBookmarklet } from "react-icons/gi";
 import { FaList, FaHeart } from "react-icons/fa";
-import { MdFolderDelete } from "react-icons/md";
 import { IoMoonOutline } from "react-icons/io5";
 import { FiGrid, FiSun, FiPlusCircle } from "react-icons/fi";
+import { BsCart4 } from "react-icons/bs";
 
 const Header = ({
   handleView,
@@ -52,7 +52,7 @@ const Header = ({
           />
         </button>
         <button>
-          <MdFolderDelete className="text-3xl text-red-500" />
+        <BsCart4  className="text-2xl  text-red-400"/>
         </button>
         <button onClick={toggleTheme} className="relative w-8 h-6 text-2xl">
           <IoMoonOutline
