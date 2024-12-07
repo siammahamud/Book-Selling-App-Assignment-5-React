@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import BookDetailsModal from "./modals/BookDetailsModal";
-import { BooksContainer } from "./Books-Container";
-import Header from "./Header";
-import Footer from "./Footer";
-import AddBookModal from "./modals/AddEdit-Book-Modal";
-import FilterTerms from "./FilterTerms";
+import BookDetailsModal from "../components/modals/BookDetailsModal";
+import { BooksContainer } from "../components/Books-Container";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import AddBookModal from "../components/modals/AddEdit-Book-Modal";
+import FilterTerms from "../components/FilterTerms";
 import {
   getBookFromLocalStorage,
   getThemeFromLocalStorage,
-} from "./localStorage";
+} from "../components/localStorage";
 
 let ArrayOfbooks = [
   {
@@ -285,7 +285,7 @@ export const MainPage = () => {
     return () => clearTimeout(timerId);
   }, [searchquery, books]);
 
-  return (  
+  return (
     <div className="dark:bg-dark">
       {/* book details modal  */}
       {isDetailsModalOpen && (
@@ -306,18 +306,18 @@ export const MainPage = () => {
         />
       )}
       {/* header  */}
-      <Header
-        books={books}
-        handleView={handleView}
-        listView={listView}
-        open={() => setIsAddBookModalOpen(true)}
-        isfilterdbyfav={isfilterdbyfav}
-        showFavouriteBooks={showFavouriteBooks}
-        handleChange={handleChange}
-        searchquery={searchquery}
-        toggleTheme={toggleTheme}
-        theme={theme}
-      />
+        <Header
+          books={books}
+          handleView={handleView}
+          listView={listView}
+          open={() => setIsAddBookModalOpen(true)}
+          isfilterdbyfav={isfilterdbyfav}
+          showFavouriteBooks={showFavouriteBooks}
+          handleChange={handleChange}
+          searchquery={searchquery}
+          toggleTheme={toggleTheme}
+          theme={theme}
+        />
       {/* filterterms  */}
       <FilterTerms filter={handleFiltering} isfilter={isfilter} />
       {/* content  */}
@@ -331,7 +331,6 @@ export const MainPage = () => {
       />
       {/* footer  */}
 
-      <Footer />
     </div>
   );
 };

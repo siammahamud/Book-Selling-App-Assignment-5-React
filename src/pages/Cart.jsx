@@ -1,5 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import ListViewCard from "../components/listViewCard";
+import CartCalc from "../components/cartCalc";
 
 let ArrayOfbooks = [
   {
@@ -52,17 +56,31 @@ let ArrayOfbooks = [
   },
 ];
 const Cart = () => {
-  const [cartProducts, setCartProducts] = useState( ArrayOfbooks || []);
+  const [cartProducts, setCartProducts] = useState(ArrayOfbooks || []);
 
   return (
-    <div className="grid grid-cols-2">
-      {/* product section  */}
-      <section>
-      <ListViewCard/>
-      </section>
-      {/* price calculation section  */}
-      <section></section>
-    </div>
+    <>
+      <Header />
+      <div className="p-20 mt-20 grid grid-cols-[2fr,1fr] min-h-[80vh] gap-20">
+        {/* product section  */}
+        <section className="flex flex-col gap-2">
+          {cartProducts.map((book) => {
+            return (
+              <div key={book.id}>
+                <ListViewCard book={book} />
+              </div>
+            );
+          })}
+        </section>
+        {/* price calculation section  */}
+        <section>
+            <CartCalc />
+        </section>
+      </div>
+      <div className="">
+        <Footer />
+      </div>
+    </>
   );
 };
 
