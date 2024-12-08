@@ -2,15 +2,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { TEInput, TERipple } from "tw-elements-react";
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
-import {
-  loginInWithFacebook,
-  loginWithGithub,
-  loginWithGoogle,
-  registerWithEmailAndPassword,
-} from "../firebase/firebase";
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import { useState } from "react";
+// import {
+//   loginInWithFacebook,
+//   loginWithGithub,
+//   // loginWithGoogle,
+//   registerWithEmailAndPassword,
+// } from "../firebase/firebase";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,54 +20,45 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await registerWithEmailAndPassword(name, email, password);
-      toast.success(
-        "Signed up successfully, Please verify your email before logging in.",
-        {
-          onClose: () => navigate("/login"),
-          toastId: "success2",
-        }
-      );
-    } catch (error) {
-      toast.error(`An error occurred during signup: ${error.message}`);
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await registerWithEmailAndPassword(name, email, password);
+  //     toast.success(
+  //       "Signed up successfully, Please verify your email before logging in.",
+  //       {
+  //         onClose: () => navigate("/login"),
+  //         toastId: "success2",
+  //       }
+  //     );
+  //   } catch (error) {
+  //     toast.error(`An error occurred during signup: ${error.message}`);
+  //   }
+  // };
 
-  const handleLoginWithGoogle = async () => {
-    try {
-      await loginWithGoogle();
-      toast.success(`Log In Successfully with Google`, {
-        onClose: () => navigate("/"),
-      });
-    } catch (error) {
-      toast.error("An error occurred during login", error);
-    }
-  };
+  
 
-  const handleLoginWithGithub = async () => {
-    try {
-      await loginWithGithub();
-      toast.success(`Log In Successfully with Github`, {
-        onClose: () => navigate("/"),
-      });
-    } catch (error) {
-      toast.error("An error occurred during login", error);
-    }
-  };
+  // const handleLoginWithGithub = async () => {
+  //   try {
+  //     await loginWithGithub();
+  //     toast.success(`Log In Successfully with Github`, {
+  //       onClose: () => navigate("/"),
+  //     });
+  //   } catch (error) {
+  //     toast.error("An error occurred during login", error);
+  //   }
+  // };
 
-  const handleLoginWithFacebook = async () => {
-    await loginInWithFacebook();
-    toast.success(`Log In Successfully with Facebook`, {
-      onClose: () => navigate("/"),
-    });
-  };
+  // const handleLoginWithFacebook = async () => {
+  //   await loginInWithFacebook();
+  //   toast.success(`Log In Successfully with Facebook`, {
+  //     onClose: () => navigate("/"),
+  //   });
+  // };
 
   return (
     <div>
-      <ToastContainer
+      {/* <ToastContainer
         position="top-center"
         autoClose={3000}
         hideProgressBar={true}
@@ -77,7 +69,7 @@ const SignUp = () => {
         draggable={false}
         pauseOnHover={false}
         theme="light"
-      />
+      /> */}
       <section className="mt-10">
         <div className="flex justify-end px-10">
           <div> </div>
@@ -107,7 +99,7 @@ const SignUp = () => {
 
             {/* <!-- Right column container with form --> */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-              <form onSubmit={handleSubmit}>
+              <form >
                 {/* <!-- Name input --> */}
                 <TEInput
                   value={name}
@@ -183,9 +175,9 @@ const SignUp = () => {
                   </p>
                 </div>
                 <SocialLogin
-                  onLoginWithGoogle={handleLoginWithGoogle}
-                  onLoginWithGithub={handleLoginWithGithub}
-                  onLoginWithFacebook= {handleLoginWithFacebook}
+                  // onLoginWithGoogle={handleLoginWithGoogle}
+                  // onLoginWithGithub={handleLoginWithGithub}
+                  // onLoginWithFacebook= {handleLoginWithFacebook}
                 />
               </form>
             </div>
