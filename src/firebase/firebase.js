@@ -28,3 +28,6 @@ const signUpWithEmail = async ({ name, email, password }) => {
     throw error;
   }
 };
+
+
+export {signUpWithEmail}
