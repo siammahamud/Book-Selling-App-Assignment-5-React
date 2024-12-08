@@ -5,7 +5,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { toast, ToastContainer } from "react-toastify";
-import { loginWithEmailAndPassword } from "../firebase/firebase";
+import { loginWithEmail } from "../firebase/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,10 +16,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginWithEmailAndPassword(email, password);
+      await loginWithEmail({ email, password });
       toast.success("Logged in successfully!", {
         onClose: () => navigate("/"),
-        toastId: "success1",
+        toastId: 1,
       });
     } catch (error) {
       toast.error("An error occurred during login", error.message);
@@ -30,8 +30,8 @@ const Login = () => {
     <section className="mt-10">
       <ToastContainer
         position="top-center"
-        autoClose={3000}
-        hideProgressBar={true}
+        autoClose={2000}
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={true}
         rtl={false}
@@ -76,6 +76,7 @@ const Login = () => {
                 type="email"
                 label="Email address"
                 size="lg"
+                autoComplete="on"
                 className="mb-6"
                 required
               ></TEInput>

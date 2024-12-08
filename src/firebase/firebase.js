@@ -3,10 +3,11 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
+  signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth"; 
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase.config";
 
 const googleAuthProvider = new GoogleAuthProvider();
@@ -24,10 +25,39 @@ const signUpWithEmail = async ({ name, email, password }) => {
     await sendEmailVerification(user);
     await signOut(auth);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     throw error;
   }
 };
 
+const loginWithEmail = async ({ email, password }) => {
+  try {
+    const response = await signInWithEmailAndPassword(auth, email, password);
+    return response.user;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+    
+  }
+};
 
-export {signUpWithEmail}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export { signUpWithEmail, loginWithEmail };

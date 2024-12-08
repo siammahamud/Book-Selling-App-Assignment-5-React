@@ -4,6 +4,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ListViewCard from "../components/listViewCard";
 import CartCalc from "../components/cartCalc";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase.config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 let ArrayOfbooks = [
   {
@@ -57,13 +61,27 @@ let ArrayOfbooks = [
 ];
 const Cart = () => {
   const [cartProducts, setCartProducts] = useState(ArrayOfbooks || []);
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success("Logged out successfully", {
+        onClose: () => navigate("/login"),
+      });
+    } catch (error) {
+      toast.error("An error occurred while logging out", error);
+    }
+  };
 
   return (
     <>
       <Header />
-      <div className="p-20 mt-20 grid grid-cols-[2fr,1fr] min-h-[80vh] gap-20">
+      <div className="p-20 mt-20 grid grid-cols-[2fr,1fr] min-h-[80vh] gap-20 relative">
         {/* product section  */}
         <section className="flex flex-col gap-2">
+          <button onClick={handleLogout} className="p-2 rounded-md bg-blue-400 absolute right-5 top-2">
+            SignOut
+          </button>
           {cartProducts.map((book) => {
             return (
               <div key={book.id}>
@@ -74,7 +92,7 @@ const Cart = () => {
         </section>
         {/* price calculation section  */}
         <section>
-            <CartCalc />
+          <CartCalc />
         </section>
       </div>
       <div className="">

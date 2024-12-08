@@ -3,6 +3,8 @@ import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { TEInput, TERipple } from "tw-elements-react";
 import { useState } from "react";
+import { signUpWithEmail } from "../firebase/firebase";
+import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 // import { ToastContainer, toast } from "react-toastify";
 // import { useState } from "react";
@@ -20,23 +22,19 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     await registerWithEmailAndPassword(name, email, password);
-  //     toast.success(
-  //       "Signed up successfully, Please verify your email before logging in.",
-  //       {
-  //         onClose: () => navigate("/login"),
-  //         toastId: "success2",
-  //       }
-  //     );
-  //   } catch (error) {
-  //     toast.error(`An error occurred during signup: ${error.message}`);
-  //   }
   // };
-
-  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signUpWithEmail({ name, email, password });
+      toast.success("Sign Up successfull, wellcome To Our Website", {
+        onClose: () => navigate("/login"),
+        toastId: 2,
+      });
+    } catch (error) {
+      toast.error("OOPs,.....SignUp failed", error);
+    }
+  };
 
   // const handleLoginWithGithub = async () => {
   //   try {
@@ -58,18 +56,18 @@ const SignUp = () => {
 
   return (
     <div>
-      {/* <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={3000}
-        hideProgressBar={true}
+        hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={true}
         rtl={false}
         pauseOnFocusLoss={false}
         draggable={false}
         pauseOnHover={false}
-        theme="light"
-      /> */}
+        theme="colored"
+      />
       <section className="mt-10">
         <div className="flex justify-end px-10">
           <div> </div>
@@ -99,7 +97,7 @@ const SignUp = () => {
 
             {/* <!-- Right column container with form --> */}
             <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
-              <form >
+              <form onSubmit={handleSubmit}>
                 {/* <!-- Name input --> */}
                 <TEInput
                   value={name}
@@ -107,6 +105,7 @@ const SignUp = () => {
                   type="text"
                   label="Name"
                   size="lg"
+                  autoComplete="on"
                   className="mb-6"
                   required
                 ></TEInput>
@@ -118,6 +117,7 @@ const SignUp = () => {
                   type="email"
                   label="Email address"
                   size="lg"
+                  autoComplete="on"
                   className="mb-6"
                   required
                 ></TEInput>
@@ -175,9 +175,9 @@ const SignUp = () => {
                   </p>
                 </div>
                 <SocialLogin
-                  // onLoginWithGoogle={handleLoginWithGoogle}
-                  // onLoginWithGithub={handleLoginWithGithub}
-                  // onLoginWithFacebook= {handleLoginWithFacebook}
+                // onLoginWithGoogle={handleLoginWithGoogle}
+                // onLoginWithGithub={handleLoginWithGithub}
+                // onLoginWithFacebook= {handleLoginWithFacebook}
                 />
               </form>
             </div>
