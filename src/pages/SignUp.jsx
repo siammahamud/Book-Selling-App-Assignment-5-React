@@ -3,7 +3,7 @@ import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { TEInput, TERipple } from "tw-elements-react";
 import { useState } from "react";
-import { signUpWithEmail } from "../firebase/firebase";
+import { loginWithGoogle, signUpWithEmail } from "../firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 // import { ToastContainer, toast } from "react-toastify";
@@ -36,6 +36,21 @@ const SignUp = () => {
     }
   };
 
+  const handleLoginWithGoogle = async () => {
+    try {
+      await loginWithGoogle();
+      toast.success("login with google successful",{
+        onClose:()=>navigate("/")
+      });
+
+    } catch (error) {
+      toast.error(
+        "An error occured with your Google account, please retry.." +
+          error.message
+      );
+    }
+  };
+
   // const handleLoginWithGithub = async () => {
   //   try {
   //     await loginWithGithub();
@@ -58,7 +73,7 @@ const SignUp = () => {
     <div>
       <ToastContainer
         position="top-center"
-        autoClose={3000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={true}
@@ -175,7 +190,7 @@ const SignUp = () => {
                   </p>
                 </div>
                 <SocialLogin
-                // onLoginWithGoogle={handleLoginWithGoogle}
+                 onLoginWithGoogle={handleLoginWithGoogle}
                 // onLoginWithGithub={handleLoginWithGithub}
                 // onLoginWithFacebook= {handleLoginWithFacebook}
                 />

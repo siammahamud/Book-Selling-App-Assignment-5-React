@@ -5,7 +5,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { toast, ToastContainer } from "react-toastify";
-import { loginWithEmail } from "../firebase/firebase";
+import { loginWithEmail, loginWithGoogle } from "../firebase/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,11 +26,25 @@ const Login = () => {
     }
   };
 
+  const handleLoginWithGoogle = async () => {
+    try {
+      await loginWithGoogle();
+      toast.success("login with google successful", {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error(
+        "An error occured with your Google account, please retry.." +
+          error.message
+      );
+    }
+  };
+
   return (
     <section className="mt-10">
       <ToastContainer
         position="top-center"
-        autoClose={2000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick={true}
@@ -110,7 +124,7 @@ const Login = () => {
                   <p className="mb-0 mt-2 pt-1">
                     Don&apos;t have an account?{" "}
                     <NavLink
-                      to={"/signup"}
+                      to={"/sign-up"}
                       className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700 font-semibold"
                     >
                       Register
@@ -144,7 +158,11 @@ const Login = () => {
                   OR
                 </p>
               </div>
-              <SocialLogin />
+              <SocialLogin
+                onLoginWithGoogle={handleLoginWithGoogle}
+                // onLoginWithGithub = {handleLoginWithGithub}
+                //onLoginWithFacebook = {handleLoginWithFacebook}
+              />
             </form>
           </div>
         </div>

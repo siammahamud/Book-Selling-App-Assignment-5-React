@@ -4,15 +4,18 @@ import {
   GoogleAuthProvider,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase.config";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const googleAuthProvider = new GoogleAuthProvider();
 const githubAuthProvider = new GithubAuthProvider();
-
+// sign up with name, email and password
 const signUpWithEmail = async ({ name, email, password }) => {
   try {
     const response = await createUserWithEmailAndPassword(
@@ -29,7 +32,7 @@ const signUpWithEmail = async ({ name, email, password }) => {
     throw error;
   }
 };
-
+// login after signup with email and password
 const loginWithEmail = async ({ email, password }) => {
   try {
     const response = await signInWithEmailAndPassword(auth, email, password);
@@ -37,27 +40,18 @@ const loginWithEmail = async ({ email, password }) => {
   } catch (error) {
     console.log(error.message);
     throw error;
-    
   }
 };
 
+// login directly  with google
+const loginWithGoogle = async () => {
+  try {
+    const response = await signInWithPopup(auth, googleAuthProvider);
+    return response.user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export { signUpWithEmail, loginWithEmail };
+export { signUpWithEmail, loginWithEmail, loginWithGoogle };
