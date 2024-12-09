@@ -53,5 +53,16 @@ const loginWithGoogle = async () => {
     throw error;
   }
 };
+// login directly with github 
+const loginWithGithub = async () => {
+  try {
+    const response = await signInWithPopup(auth, githubAuthProvider);
+    return response.user;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
 
-export { signUpWithEmail, loginWithEmail, loginWithGoogle };
+
+export { signUpWithEmail, loginWithEmail, loginWithGoogle,loginWithGithub };

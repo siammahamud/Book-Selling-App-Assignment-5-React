@@ -5,7 +5,7 @@ import { TEInput, TERipple } from "tw-elements-react";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { toast, ToastContainer } from "react-toastify";
-import { loginWithEmail, loginWithGoogle } from "../firebase/firebase";
+import { loginWithEmail, loginWithGithub, loginWithGoogle } from "../firebase/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const Login = () => {
     }
   };
 
+
   const handleLoginWithGoogle = async () => {
     try {
       await loginWithGoogle();
@@ -39,6 +40,18 @@ const Login = () => {
       );
     }
   };
+  const handleLoginWithGithub = async () => {
+    try {
+      await loginWithGithub();
+      toast.success(`Log In Successfully with Github`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
+  };
+
+
 
   return (
     <section className="mt-10">
@@ -160,7 +173,7 @@ const Login = () => {
               </div>
               <SocialLogin
                 onLoginWithGoogle={handleLoginWithGoogle}
-                // onLoginWithGithub = {handleLoginWithGithub}
+                onLoginWithGithub = {handleLoginWithGithub}
                 //onLoginWithFacebook = {handleLoginWithFacebook}
               />
             </form>

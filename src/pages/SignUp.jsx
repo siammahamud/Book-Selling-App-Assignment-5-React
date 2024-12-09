@@ -3,7 +3,7 @@ import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { TEInput, TERipple } from "tw-elements-react";
 import { useState } from "react";
-import { loginWithGoogle, signUpWithEmail } from "../firebase/firebase";
+import { loginWithGithub, loginWithGoogle, signUpWithEmail } from "../firebase/firebase";
 import { toast, ToastContainer } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 // import { ToastContainer, toast } from "react-toastify";
@@ -51,16 +51,16 @@ const SignUp = () => {
     }
   };
 
-  // const handleLoginWithGithub = async () => {
-  //   try {
-  //     await loginWithGithub();
-  //     toast.success(`Log In Successfully with Github`, {
-  //       onClose: () => navigate("/"),
-  //     });
-  //   } catch (error) {
-  //     toast.error("An error occurred during login", error);
-  //   }
-  // };
+  const handleLoginWithGithub = async () => {
+    try {
+      await loginWithGithub();
+      toast.success(`Log In Successfully with Github`, {
+        onClose: () => navigate("/"),
+      });
+    } catch (error) {
+      toast.error("An error occurred during login", error);
+    }
+  };
 
   // const handleLoginWithFacebook = async () => {
   //   await loginInWithFacebook();
@@ -191,7 +191,7 @@ const SignUp = () => {
                 </div>
                 <SocialLogin
                  onLoginWithGoogle={handleLoginWithGoogle}
-                // onLoginWithGithub={handleLoginWithGithub}
+                 onLoginWithGithub={handleLoginWithGithub}
                 // onLoginWithFacebook= {handleLoginWithFacebook}
                 />
               </form>
