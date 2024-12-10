@@ -3,6 +3,7 @@ import {
   GithubAuthProvider,
   GoogleAuthProvider,
   sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -53,7 +54,7 @@ const loginWithGoogle = async () => {
     throw error;
   }
 };
-// login directly with github 
+// login directly with github
 const loginWithGithub = async () => {
   try {
     const response = await signInWithPopup(auth, githubAuthProvider);
@@ -64,5 +65,14 @@ const loginWithGithub = async () => {
   }
 };
 
+// forgot password , reset password email sending function
+const sendResetPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email)
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+};
 
-export { signUpWithEmail, loginWithEmail, loginWithGoogle,loginWithGithub };
+export { signUpWithEmail, loginWithEmail, loginWithGoogle, loginWithGithub, sendResetPassword};

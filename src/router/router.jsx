@@ -5,6 +5,7 @@ import Cart from "../pages/Cart";
 import SignUp from "../pages/SignUp";
 import PrivateRoutes from "./privateRoute";
 import Login from "../pages/Login";
+import Reset from "../pages/Reset";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path:"login",
     element:<Login/>
+  },
+  {
+    path:"reset",
+    element:<Reset/>
   }
 ]);
 
