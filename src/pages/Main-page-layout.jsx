@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import BookDetailsModal from "../components/modals/BookDetailsModal";
 import { BooksContainer } from "../components/Books-Container";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import AddBookModal from "../components/modals/AddEdit-Book-Modal";
 import FilterTerms from "../components/FilterTerms";
 import {

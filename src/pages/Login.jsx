@@ -5,7 +5,11 @@ import { TEInput, TERipple } from "tw-elements-react";
 import SocialLogin from "../components/SocialLogin";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { toast, ToastContainer } from "react-toastify";
-import { loginWithEmail, loginWithGithub, loginWithGoogle } from "../firebase/firebase";
+import {
+  loginWithEmail,
+  loginWithGithub,
+  loginWithGoogle,
+} from "../firebase/firebase";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,7 +30,6 @@ const Login = () => {
     }
   };
 
-
   const handleLoginWithGoogle = async () => {
     try {
       await loginWithGoogle();
@@ -40,6 +43,7 @@ const Login = () => {
       );
     }
   };
+
   const handleLoginWithGithub = async () => {
     try {
       await loginWithGithub();
@@ -50,8 +54,6 @@ const Login = () => {
       toast.error("An error occurred during login", error);
     }
   };
- 
- 
 
   return (
     <section className="mt-10">
@@ -147,7 +149,6 @@ const Login = () => {
 
                 {/* <!-- Forgot password link --> */}
                 <NavLink
-                onClick={sendResetPassword}
                   to="/reset"
                   className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
                 >
@@ -174,7 +175,7 @@ const Login = () => {
               </div>
               <SocialLogin
                 onLoginWithGoogle={handleLoginWithGoogle}
-                onLoginWithGithub = {handleLoginWithGithub}
+                onLoginWithGithub={handleLoginWithGithub}
                 //onLoginWithFacebook = {handleLoginWithFacebook}
               />
             </form>

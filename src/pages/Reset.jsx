@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { sendResetPassword } from "../firebase/firebase";
+
 const Reset = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
